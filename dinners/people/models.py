@@ -2,12 +2,12 @@ from django.db import models
 
 # Create your models here.
 
-class PeopleType(models.Model):
+class PersonType(models.Model):
     name            = models.CharField(max_length=60)
 
 
-class AthenaPeople(models.Model):
-    person_type     = models.ForeignKey(PeopleType)
+class AthenaPerson(models.Model):
+    person_type     = models.ForeignKey(PersonType)
     office_location = models.CharField(max_length=30)
     first_name      = models.CharField(max_length=30)
     year            = models.CharField(max_length=1)
