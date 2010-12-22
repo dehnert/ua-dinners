@@ -14,6 +14,9 @@ class AthenaPerson(models.Model):
     unit_name       = models.CharField(max_length=16)
     last_name       = models.CharField(max_length=30)
     krb_name        = models.CharField(max_length=8)
+    add_date        = models.DateField(help_text="Date when this person was added to the dump.")
+    del_date        = models.DateField(help_text="Date when this person was removed from the dump.")
+    mod_date        = models.DateField(help_text="Date when this person's record was last changed.")
 
 
 class AlumPerson(models.Model):
