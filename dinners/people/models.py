@@ -5,20 +5,30 @@ from django.db import models
 class PersonType(models.Model):
     name            = models.CharField(max_length=60)
 
+    def __unicode__(self, ):
+        return self.name
+
+
 
 class AthenaPerson(models.Model):
+    krb_name        = models.CharField(max_length=8, verbose_name='Kerberos name')
     person_type     = models.ForeignKey(PersonType)
     office_location = models.CharField(max_length=30)
     first_name      = models.CharField(max_length=30)
     year            = models.CharField(max_length=1)
     unit_name       = models.CharField(max_length=16)
     last_name       = models.CharField(max_length=30)
-    krb_name        = models.CharField(max_length=8)
-    add_date        = models.DateField(help_text="Date when this person was added to the dump.")
-    del_date        = models.DateField(help_text="Date when this person was removed from the dump.")
+    add_date        = models.DateField(help_text="Date when this person was added to the dump.", )
+    del_date        = models.DateField(help_text="Date when this person was removed from the dump.", blank=True, null=True, )
     mod_date        = models.DateField(help_text="Date when this person's record was last changed.")
+
+    def __unicode__(self, ):
+        return self.krb_name
 
 
 class AlumPerson(models.Model):
     account_name    = models.CharField(max_length=8)
     grad_year       = models.IntegerField()
+
+    def __unicode__(self, ):
+        return self.account_name
