@@ -4,6 +4,8 @@ from django.conf.urls.defaults import *
 from django.contrib import admin
 admin.autodiscover()
 
+from django.contrib.auth.views import login, logout
+
 import settings
 
 urlpatterns = patterns('',
@@ -17,6 +19,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+
+    url(r'^accounts/login/',  login,  name='login', ),
+    url(r'^accounts/logout/', logout, name='logout', ),
 )
 
 if settings.DEBUG:
