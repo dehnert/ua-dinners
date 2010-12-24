@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Register a dinner: {{program}}{% endblock %}
+{% block content %}
+
+<h2>Register a dinner: {{program}}</h2>
+
+<form method="post" action="">
+<table class='pretty-table'>
+<tr class='sect-head'>
+{{ form.as_table }}
+<tr><th colspan='2'><input type='submit' value='Register' /></th></tr>
+</table>
+</form>
+
+{% endblock %}
