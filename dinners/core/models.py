@@ -50,7 +50,7 @@ class Dinner(models.Model):
     creator     = models.CharField(max_length=10)
     create_time = models.DateTimeField(default=datetime.datetime.now)
     dinner_place= models.CharField(max_length=100)
-    dinner_time = models.DateTimeField()
+    dinner_time = models.DateTimeField(null=True, )
 
     def guest_of_honor(self, ):
         if self.prof: return self.prof
