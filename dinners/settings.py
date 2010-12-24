@@ -1,4 +1,9 @@
 # Django settings for dinners project.
+import os
+import sys
+
+SITE_ROOT = os.path.normpath(os.path.dirname(__file__))
+SITE_WEB_PATH = ''
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -37,17 +42,17 @@ from local_settings import *
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = SITE_ROOT + '/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = SITE_WEB_PATH + '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = SITE_WEB_PATH + '/media/admin/'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -68,6 +73,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    SITE_ROOT + '/templates/',
 )
 
 INSTALLED_APPS = (
