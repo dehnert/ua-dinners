@@ -39,6 +39,7 @@ def register_dinner(http_request, program_slug):
     initial = {}
 
     DinnerForm = DinnerFormFactory(program)
+    new_dinner = None
 
     if http_request.method == 'POST': # If the form has been submitted...
         form = DinnerForm(http_request.POST, ) # A form bound to the POST data
@@ -86,12 +87,13 @@ def register_dinner(http_request, program_slug):
             #    recipients,
             #)
 
-            return HttpResponseRedirect(reverse('homepage')) # Redirect after POST
+            form = None
     else:
         form = DinnerForm(initial=initial, ) # An unbound form
 
     context = {
         'form':form,
+        'dinner':new_dinner,
         'program':program,
         'pagename':'register_dinner',
     }

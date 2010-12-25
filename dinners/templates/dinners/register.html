@@ -5,6 +5,7 @@
 
 <h2>Register a dinner: {{program}}</h2>
 
+{% if form %}
 <form method="post" action="">
 <table class='pretty-table'>
 <tr class='sect-head'>
@@ -12,5 +13,22 @@
 <tr><th colspan='2'><input type='submit' value='Register' /></th></tr>
 </table>
 </form>
+{% else %}
+<p>Congratulations, you successfully registered for a dinner:</p>
+<table class='pretty-table'>
+<tr><th>Program</th><td>{{dinner.program}}</td></tr>
+{% if dinner.prof %}
+<tr><th>Professor</th><td>{{dinner.prof}}</td></tr>
+{% endif %}
+{% if dinner.alum %}
+<tr><th>Alumnus</th><td>{{dinner.alum}}</td></tr>
+{% endif %}
+<tr><th>Participants</th><td><ul>
+    {% for part in dinner.students.all %}
+    <li>{{part}}</li>
+    {% endfor %}
+</ul></td></tr>
+</table>
+{% endif %}
 
 {% endblock %}
