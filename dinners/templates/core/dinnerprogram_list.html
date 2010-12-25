@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Select a program{% endblock %}
+{% block content %}
+
+<h2>Select a program</h2>
+
+<ul>
+{% for program in object_list %}
+<li><a href='{% url register_dinner program.slug %}'>{{program}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

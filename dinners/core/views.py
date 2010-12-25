@@ -29,9 +29,6 @@ def DinnerFormFactory(program):
     print "DinnerForm:", DinnerForm.__dict__
     return DinnerForm
 
-def select_program(http_request):
-    pass
-
 @login_required
 def register_dinner(http_request, program_slug):
     program = get_object_or_404(DinnerProgram, slug=program_slug)

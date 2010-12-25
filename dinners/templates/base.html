@@ -14,7 +14,7 @@
   <body>
     <ul class='tab-navigation'>
         <li{% ifequal pagename "homepage" %} class='selected'{% endifequal %}><a href="{% url homepage %}">Home</a></li>
-        <li{% ifequal pagename "register_dinner" %} class='selected'{% endifequal %}><a href="{% url register_dinner "test" %}">Register Dinner</a></li>
+        <li{% ifequal pagename "register_dinner" %} class='selected'{% endifequal %}><a href="{% url register_pick_program %}">Register Dinner</a></li>
         {% if user.is_staff %}
         <li><a href='{% url admin:index %}'>Django Admin</a></li>
         {% endif %}
