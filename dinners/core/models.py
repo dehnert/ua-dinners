@@ -37,6 +37,8 @@ class DinnerProgram(models.Model):
     total_money_cap     = models.DecimalField(verbose_name="money cap for entire program", help_text="Maximum amount that the entire program can spend on dinners", max_digits=7, decimal_places=2)
     allow_alum          = models.BooleanField(help_text="Check to allow an alum to be the focus of the dinners.")
     allow_prof          = models.BooleanField(help_text="Check to allow a professor to be the focus of the dinners.")
+    contact_addr        = models.EmailField(help_text="Contact address for the program. This address will be used for sending out emails.")
+    archive_addr        = models.EmailField(help_text="Archive address for the program. This address will be BCC'd on outgoing emails.")
 
     def __unicode__(self, ):
         return self.name
