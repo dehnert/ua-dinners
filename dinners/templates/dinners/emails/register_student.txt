@@ -1,0 +1,15 @@
+Thank you for participating in the UA Student-Faculty dinner! This
+e-mail is to inform you that {{creator}} has registered you for a
+dinner with {{guest}}.
+
+TO CONFIRM your participation in this dinner, please click this link:
+
+{{acceptlink}}
+
+If this message was sent in error, please click this link to indicate
+you will not be participating in the dinner:
+
+{{rejectlink}}
+
+Best,
+Undergraduate Association Student Committee on Educational Policy (SCEP)

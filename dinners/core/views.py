@@ -4,7 +4,10 @@ from django.core.urlresolvers import reverse
 from django.forms import Form, ModelForm
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template import Context, Template
 from django.template import RequestContext
+from django.template.loader import get_template
+from django.core.mail import EmailMessage
 
 
 from dinners.core.models import Dinner, DinnerParticipant, DinnerProgram
@@ -61,28 +64,24 @@ def register_dinner(http_request, program_slug):
             print form.__dict__
 
             # Send email
-            #tmpl = get_template('vouchers/emails/request_submit_admin.txt')
-            #ctx = Context({
-            #    'submitter': http_request.user,
-            #    'request': request_obj,
-            #})
-            #body = tmpl.render(ctx)
-            #recipients = []
-            #for name, addr in settings.ADMINS:
-            #    recipients.append(addr)
-            #recipients.append(request_obj.budget_area.owner_address())
-            #if settings.CC_SUBMITTER:
-            #    recipients.append(http_request.user.email)
-            #send_mail(
-            #    '%sRequest submittal: %s requested $%s' % (
-            #        settings.EMAIL_SUBJECT_PREFIX,
-            #        http_request.user,
-            #        request_obj.amount,
-            #    ),
-            #    body,
-            #    settings.SERVER_EMAIL,
-            #    recipients,
-            #)
+            tmpl = get_template('dinners/emails/register_student.txt')
+            ctx = Context({
+                'creator': http_request.user,
+                'guest': new_dinner.guest_of_honor(),
+                'acceptlink' : 'LINK',
+                'rejectlink' : 'LINK',
+            })
+            body = tmpl.render(ctx)
+            to_recipients = [person.krb_name for person in new_dinner.students.all()]
+            bcc_recipients = [program.archive_addr]
+            email = EmailMessage(
+                subject='Registered dinner with %s' % (new_dinner.guest_of_honor()),
+                body=body,
+                from_email=program.contact_addr,
+                to=to_recipients,
+                bcc=bcc_recipients,
+            )
+            email.send()
 
             form = None
     else:
