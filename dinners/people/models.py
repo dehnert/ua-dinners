@@ -25,6 +25,9 @@ class AthenaPerson(models.Model):
     def __unicode__(self, ):
         return self.krb_name
 
+    def display_name(self, ):
+        return "%s %s" % (self.first_name, self.last_name, )
+
 
 class AlumPerson(models.Model):
     account_name    = models.CharField(max_length=8)
@@ -34,3 +37,6 @@ class AlumPerson(models.Model):
 
     def __unicode__(self, ):
         return self.account_name
+
+    def display_name(self, ):
+        return "%s %s" % (self.first_name, self.last_name, )

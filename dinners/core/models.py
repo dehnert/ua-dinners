@@ -59,6 +59,14 @@ class Dinner(models.Model):
         if self.alum: return self.alum
         return None
 
+    def guest_of_honor_with_title(self, ):
+        guests = []
+        if self.prof: guests.append("Professor %s" % (self.prof.display_name()))
+        if self.alum: guests.append("alumnus %s" % (self.alum.display_name()))
+        if len(guests) == 0:
+            raise ValueError, "no guest of honor"
+        return " and ".join(guests)
+
     def __unicode__(self, ):
         return "Dinner: %s (creator) with %s (guest)" % (self.creator, str(self.guest_of_honor()), )
 

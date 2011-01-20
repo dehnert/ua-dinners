@@ -67,7 +67,7 @@ def register_dinner(http_request, program_slug):
             tmpl = get_template('dinners/emails/register_student.txt')
             ctx = Context({
                 'creator': http_request.user,
-                'guest': new_dinner.guest_of_honor(),
+                'guest': new_dinner.guest_of_honor_with_title(),
                 'acceptlink' : 'LINK',
                 'rejectlink' : 'LINK',
             })
@@ -75,7 +75,7 @@ def register_dinner(http_request, program_slug):
             to_recipients = [person.krb_name for person in new_dinner.students.all()]
             bcc_recipients = [program.archive_addr]
             email = EmailMessage(
-                subject='Registered dinner with %s' % (new_dinner.guest_of_honor()),
+                subject='Registered dinner with %s' % (new_dinner.guest_of_honor_with_title()),
                 body=body,
                 from_email=program.contact_addr,
                 to=to_recipients,
