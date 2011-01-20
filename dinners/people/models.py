@@ -29,6 +29,8 @@ class AthenaPerson(models.Model):
 class AlumPerson(models.Model):
     account_name    = models.CharField(max_length=8)
     grad_year       = models.IntegerField()
+    first_name      = models.CharField(max_length=30)
+    last_name       = models.CharField(max_length=30)
 
     def __unicode__(self, ):
         return self.account_name
