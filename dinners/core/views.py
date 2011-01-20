@@ -10,6 +10,7 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 
 
+import settings
 from dinners.core.models import Dinner, DinnerParticipant, DinnerProgram
 import dinners.core.models
 import dinners.people.forms
@@ -68,8 +69,8 @@ def register_dinner(http_request, program_slug):
             ctx = Context({
                 'creator': http_request.user,
                 'guest': new_dinner.guest_of_honor_with_title(),
-                'acceptlink' : 'LINK',
-                'rejectlink' : 'LINK',
+                'confirmlink' : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='confirm', dinner_id=new_dinner.pk), ),
+                'rejectlink'  : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='reject', dinner_id=new_dinner.pk), ),
             })
             body = tmpl.render(ctx)
             to_recipients = [person.krb_name for person in new_dinner.students.all()]
@@ -94,4 +95,32 @@ def register_dinner(http_request, program_slug):
         'pagename':'register_dinner',
     }
     return render_to_response('dinners/register.html', context, context_instance=RequestContext(http_request), )
- 
+
+@login_required
+def confirm_dinner(http_request, action, dinner_id):
+    dinner_id = int(dinner_id)
+    print "confirm_dinner", action, dinner_id
+    dinner = get_object_or_404(Dinner, pk=dinner_id)
+    parts = DinnerParticipant.objects.filter(dinner=dinner, person__krb_name=http_request.user.username)
+    print "parts", parts
+    if len(parts) == 0:
+        raise Http404
+    elif len(parts) == 1:
+        part = parts[0]
+    else:
+        raise Http500
+    if action == 'reject':
+        part.confirmed = dinners.core.models.CONFIRM_REJECTED
+    elif action == 'confirm':
+        part.confirmed = dinners.core.models.CONFIRM_CONFIRMED
+    else:
+        raise Http404
+    part.save()
+    context = {
+        'action':action,
+        'dinner':dinner,
+        'part':part,
+        'user':http_request.user,
+        'pagename':'confirm_dinner',
+    }
+    return render_to_response('dinners/confirm.html', context, context_instance=RequestContext(http_request), )

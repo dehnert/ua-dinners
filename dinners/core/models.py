@@ -78,4 +78,4 @@ class DinnerParticipant(models.Model):
     valid       = models.IntegerField(choices=VALID_CHOICES)
 
     def __unicode__(self, ):
-        return "%s on [%s]" % (self.person, self.dinner, )
+        return "%s on [%s] (%s)" % (self.person, self.dinner, self.get_confirmed_display(), )
