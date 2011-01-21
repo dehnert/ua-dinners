@@ -65,24 +65,8 @@ def register_dinner(http_request, program_slug):
             print form.__dict__
 
             # Send email
-            tmpl = get_template('dinners/emails/register_student.txt')
-            ctx = Context({
-                'creator': http_request.user,
-                'guest': new_dinner.guest_of_honor_with_title(),
-                'confirmlink' : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='confirm', dinner_id=new_dinner.pk), ),
-                'rejectlink'  : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='reject', dinner_id=new_dinner.pk), ),
-            })
-            body = tmpl.render(ctx)
-            to_recipients = [person.krb_name for person in new_dinner.students.all()]
-            bcc_recipients = [program.archive_addr]
-            email = EmailMessage(
-                subject='Registered dinner with %s' % (new_dinner.guest_of_honor_with_title()),
-                body=body,
-                from_email=program.contact_addr,
-                to=to_recipients,
-                bcc=bcc_recipients,
-            )
-            email.send()
+            send_register_student_email(http_request.user, program, new_dinner, )
+
 
             form = None
     else:
@@ -95,6 +79,27 @@ def register_dinner(http_request, program_slug):
         'pagename':'register_dinner',
     }
     return render_to_response('dinners/register.html', context, context_instance=RequestContext(http_request), )
+
+def send_register_student_email(creator, program, dinner, ):
+    tmpl = get_template('dinners/emails/register_student.txt')
+    ctx = Context({
+        'creator': creator,
+        'guest': dinner.guest_of_honor_with_title(),
+        'confirmlink' : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='confirm', dinner_id=dinner.pk), ),
+        'rejectlink'  : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='reject', dinner_id=dinner.pk), ),
+    })
+    body = tmpl.render(ctx)
+    to_recipients = [person.krb_name for person in dinner.students.all()]
+    bcc_recipients = [program.archive_addr]
+    email = EmailMessage(
+        subject='Registered dinner with %s' % (dinner.guest_of_honor_with_title()),
+        body=body,
+        from_email=program.contact_addr,
+        to=to_recipients,
+        bcc=bcc_recipients,
+    )
+    email.send()
+
 
 @login_required
 def confirm_dinner(http_request, action, dinner_id):
