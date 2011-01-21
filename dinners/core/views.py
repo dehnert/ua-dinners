@@ -49,7 +49,10 @@ def register_dinner(http_request, program_slug):
             new_dinner = Dinner()
             new_dinner.creator = http_request.user.username
             new_dinner.program = program
-            new_dinner.prof = form.cleaned_data['professor']
+            if 'professor' in form.cleaned_data:
+                new_dinner.prof = form.cleaned_data['professor']
+            if 'alum' in form.cleaned_data:
+                new_dinner.alum = form.cleaned_data['alum']
             new_dinner.save()
             for i in range(0, program.max_students):
                 name = "student_" + str(i)
