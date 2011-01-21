@@ -28,6 +28,9 @@ class AthenaPerson(models.Model):
     def display_name(self, ):
         return "%s %s" % (self.first_name, self.last_name, )
 
+    def contact_email(self, ):
+        return "%s@mit.edu" % (self.krb_name, )
+
 
 class AlumPerson(models.Model):
     account_name    = models.CharField(max_length=8)
@@ -40,3 +43,6 @@ class AlumPerson(models.Model):
 
     def display_name(self, ):
         return "%s %s" % (self.first_name, self.last_name, )
+
+    def contact_email(self, ):
+        return "%s@alum.mit.edu" % (self.account_name, )
