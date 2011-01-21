@@ -8,12 +8,40 @@ from django.template import Context, Template
 from django.template import RequestContext
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
+from django.views.generic import list_detail
 
 
 import settings
 from dinners.core.models import Dinner, DinnerParticipant, DinnerProgram
 import dinners.core.models
 import dinners.people.forms
+
+@user_passes_test(lambda u: u.has_perm('core.view_dinners'))
+def view_dinners(http_request, program_slug, ):
+    program = get_object_or_404(dinners.core.models.DinnerProgram, slug=program_slug, )
+    qs = dinners.core.models.Dinner.objects.filter(program=program,)
+    return list_detail.object_list(
+        http_request,
+        queryset=qs,
+        extra_context={
+            'pagename':'view_request',
+            'program': program,
+        },
+    )
+
+@user_passes_test(lambda u: u.has_perm('core.view_dinners'))
+def view_dinner(http_request, program_slug, dinner_id, ):
+    program = get_object_or_404(dinners.core.models.DinnerProgram, slug=program_slug, )
+    qs = dinners.core.models.Dinner.objects.filter(program=program,)
+    return list_detail.object_detail(
+        http_request,
+        qs,
+        dinner_id,
+        extra_context={
+            'pagename':'view_request',
+            'program': program,
+        },
+    )
 
 def DinnerFormFactory(program):
     class DinnerForm(Form):

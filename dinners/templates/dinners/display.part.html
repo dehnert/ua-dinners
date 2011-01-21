@@ -1,0 +1,28 @@
+<tr><td colspan='5'></td></tr>
+{%if dinner.prof%}
+<tr>
+    <th>{{dinner.prof.display_name}}</th>
+    <th><a href='mailto:{{dinner.prof.contact_email}}'>{{dinner.prof.contact_email}}</th>
+    <th>{{dinner.prof.unit_name}}</th>
+    <th></th>
+    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
+</tr>
+{%endif%}
+{%if dinner.alum%}
+<tr>
+    <th>{{dinner.alum.display_name}}</th>
+    <th><a href='mailto:{{dinner.alum.contact_email}}'>{{dinner.alum.contact_email}}</th>
+    <th></th>
+    <th>{{dinner.alum.grad_year}}</th>
+    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
+</tr>
+{%endif%}
+{% for part in dinner.students.all %}
+<tr>
+    <td>{{part.display_name}}</td>
+    <td><a href='mailto:{{part.contact_email}}'>{{part.contact_email}}</td>
+    <td>{{part.unit_name}}</td>
+    <td>{{part.year}}</td>
+    <td>(status)</td>
+</tr>
+{% endfor %}

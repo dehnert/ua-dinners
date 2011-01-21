@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{object}}{% endblock %}
+{% block content %}
+
+<h2>{{object}}</h2>
+
+<table class='pretty-table'>
+{% include "dinners/display.header.html" %}
+
+{% with object as dinner %}
+{% include "dinners/display.part.html" %}
+{% endwith %}
+</table>
+
+{% endblock %}
