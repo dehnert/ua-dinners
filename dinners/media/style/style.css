@@ -18,6 +18,11 @@ table.pretty-table th
     color: white;
     font-weight: normal;
 }
+table.pretty-table th a
+{
+    color: #ffcc99;
+}
+
 ul.errorlist
 {
     color: red;
