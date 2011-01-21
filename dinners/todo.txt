@@ -1,0 +1,2 @@
+* Remove the references to SCEP / Student Committee on Educational Policy
+* Copy dinner programs
