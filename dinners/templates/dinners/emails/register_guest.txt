@@ -1,0 +1,23 @@
+Hi, {{guest.display_name}}.
+
+Greetings from UA Student Committee on Education Policy (SCEP). Thank
+you for agreeing to participate in the Student-Faculty Dinner
+Program. This email is to let you know, even though the students have
+talked to you about this already, that they've registered with us and
+have secured funding. We've listed your students below, for your reference.
+{% for student in dinner.students.all %}
+* {{student.display_name}}{% endfor %}
+
+In terms of next steps, together you and your students will find a time
+that works for everyone. Actually, this process is entirely driven by
+your students and SCEP is just happy to reimburse the cost.
+
+This program aims to foster better relations between students and
+members of the faculty, by providing an opportunity for informal
+dialog. We thank you for your participation and hope you enjoy it. If
+you have any questions, please do not hesitate to email us at
+<ua-scep-dinners@mit.edu>.
+
+Respectfully yours,
+
+Undergraduate Association Student Committee on Educational Policy (SCEP)

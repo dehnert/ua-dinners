@@ -66,6 +66,7 @@ def register_dinner(http_request, program_slug):
 
             # Send email
             send_register_student_email(http_request.user, program, new_dinner, )
+            send_register_guest_email(http_request.user, program, new_dinner, )
 
 
             form = None
@@ -93,6 +94,27 @@ def send_register_student_email(creator, program, dinner, ):
     bcc_recipients = [program.archive_addr]
     email = EmailMessage(
         subject='Registered dinner with %s' % (dinner.guest_of_honor_with_title()),
+        body=body,
+        from_email=program.contact_addr,
+        to=to_recipients,
+        bcc=bcc_recipients,
+    )
+    email.send()
+
+def send_register_guest_email(creator, program, dinner, ):
+    guest = dinner.guest_of_honor()
+    tmpl = get_template('dinners/emails/register_guest.txt')
+    ctx = Context({
+        'creator': creator,
+        'dinner': dinner,
+        'guest': guest,
+    })
+    print dinner.students.all()
+    body = tmpl.render(ctx)
+    to_recipients = [guest.contact_email()]
+    bcc_recipients = [program.archive_addr]
+    email = EmailMessage(
+        subject='Student-Faculty Dinner',
         body=body,
         from_email=program.contact_addr,
         to=to_recipients,
