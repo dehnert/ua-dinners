@@ -1,2 +1,4 @@
 * Remove the references to SCEP / Student Committee on Educational Policy
-* Copy dinner programs
+* Allowing copying dinner programs in the UI
+* Validate professors and alumni
+* Allow signing up with people who don't have accounts at all (?)
