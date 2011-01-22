@@ -54,6 +54,9 @@ class Dinner(models.Model):
     dinner_place= models.CharField(max_length=100)
     dinner_time = models.DateTimeField(null=True, )
 
+    def students_state(self, ):
+        return DinnerParticipant.objects.filter(dinner=self,)
+
     def guest_of_honor(self, ):
         if self.prof: return self.prof
         if self.alum: return self.alum
@@ -76,6 +79,13 @@ class DinnerParticipant(models.Model):
     person      = models.ForeignKey("people.AthenaPerson")
     confirmed   = models.IntegerField(choices=CONFIRM_CHOICES)
     valid       = models.IntegerField(choices=VALID_CHOICES)
+
+    def get_confirmed_class(self, ):
+        """Get a CSS class for displaying the confirmation state."""
+        return "confirmed-" + self.get_confirmed_display()
+    def get_valid_class(self, ):
+        """Get a CSS class for displaying the confirmation state."""
+        return "validated-" + self.get_valid_display()
 
     def __unicode__(self, ):
         return "%s on [%s] (%s)" % (self.person, self.dinner, self.get_confirmed_display(), )

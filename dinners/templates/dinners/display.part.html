@@ -5,6 +5,7 @@
     <th><a href='mailto:{{dinner.prof.contact_email}}'>{{dinner.prof.contact_email}}</th>
     <th>{{dinner.prof.unit_name}}</th>
     <th></th>
+    <th></th>
     <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
 </tr>
 {%endif%}
@@ -14,15 +15,17 @@
     <th><a href='mailto:{{dinner.alum.contact_email}}'>{{dinner.alum.contact_email}}</th>
     <th></th>
     <th>{{dinner.alum.grad_year}}</th>
+    <th></th>
     <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
 </tr>
 {%endif%}
-{% for part in dinner.students.all %}
+{% for part in dinner.students_state %}
 <tr>
-    <td>{{part.display_name}}</td>
-    <td><a href='mailto:{{part.contact_email}}'>{{part.contact_email}}</td>
-    <td>{{part.unit_name}}</td>
-    <td>{{part.year}}</td>
-    <td>(status)</td>
+    <td>{{part.person.display_name}}</td>
+    <td><a href='mailto:{{part.contact_email}}'>{{part.person.contact_email}}</a></td>
+    <td>{{part.person.unit_name}}</td>
+    <td>{{part.person.year}}</td>
+    <td class='{{part.get_valid_class}}'>{{part.get_valid_display}}</td>
+    <td class='{{part.get_confirmed_class}}'>{{part.get_confirmed_display}}</td>
 </tr>
 {% endfor %}

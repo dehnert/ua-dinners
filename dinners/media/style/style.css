@@ -93,3 +93,12 @@ form .required label:before
     content: "*";
     color: red;
 }
+
+td.confirmed-unconfirmed { background-color: yellow; }
+td.confirmed-confirmed   { background-color: green; }
+td.confirmed-overridden  { background-color: green; }
+td.confirmed-rejected    { background-color: red; }
+td.validated-unvalidated { background-color: yellow; }
+td.validated-autovalidated   { background-color: green; }
+td.validated-hand-validated  { background-color: green; }
+td.validated-rejected    { background-color: red; }
