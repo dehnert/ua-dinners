@@ -6,7 +6,7 @@
     <th>{{dinner.prof.unit_name}}</th>
     <th></th>
     <th></th>
-    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
+    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a> <a href='{% url admin:core_dinner_change dinner.pk %}'>edit</a>]</th>
 </tr>
 {%endif%}
 {%if dinner.alum%}
@@ -16,7 +16,7 @@
     <th></th>
     <th>{{dinner.alum.grad_year}}</th>
     <th></th>
-    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a>]</th>
+    <th>[Dinner {{dinner.pk}}: <a href='{% url view_dinner program.slug dinner.pk %}'>view</a> <a href='{% url admin:core_dinner_change dinner.pk %}'>edit</a>]</th>
 </tr>
 {%endif%}
 {% for part in dinner.students_state %}
