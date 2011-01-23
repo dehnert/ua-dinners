@@ -51,11 +51,19 @@ class Dinner(models.Model):
     students    = models.ManyToManyField('people.AthenaPerson', through='DinnerParticipant', related_name="student_dinners")
     creator     = models.CharField(max_length=10)
     create_time = models.DateTimeField(default=datetime.datetime.now)
-    dinner_place= models.CharField(max_length=100)
-    dinner_time = models.DateTimeField(null=True, )
+    dinner_place= models.CharField(max_length=100, blank=True, )
+    dinner_time = models.DateTimeField(null=True, blank=True, )
 
     def students_state(self, ):
         return DinnerParticipant.objects.filter(dinner=self,)
+
+    def date_registration_blockers(self, ):
+        """Determine who prevents this dinner from being registered.
+
+        In particular, to register a date, the dinner must have no participants
+        who are unconfirmed and not invald.
+        """
+        return self.students_state().filter(confirmed=CONFIRM_UNSET, valid__gte=VALID_UNSET)
 
     def guest_of_honor(self, ):
         if self.prof: return self.prof

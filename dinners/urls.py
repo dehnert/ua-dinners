@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     ),
     url(r'^dinners/register/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.register_dinner, name='register_dinner', ),
     url(r'^dinners/(?P<action>confirm|reject)/(?P<dinner_id>[0-9]+)$', dinners.core.views.confirm_dinner, name='confirm_dinner', ),
+    url(r'^dinners/schedule/(?P<dinner_id>[0-9]+)$', dinners.core.views.schedule_dinner, name='schedule_dinner', ),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule dinner with {{dinner.guest_of_honor_with_title}}{% endblock %}
+{% block content %}
+
+<h2>Schedule dinner with {{dinner.guest_of_honor_with_title}}</h2>
+
+<p>Thank you for attempting to schedule your dinner with {{dinner.guest_of_honor_with_title}}. Unfortunately, you currently have attendees signed up who have not confirmed their intention to attend:</p>
+<ul>
+{% for blocker in blockers %}
+<li>{{blocker.person.display_name}} ({{blocker.person.krb_name}})</li>
+{% endfor %}
+</ul>
+
+<p>Please get them to verify their intention to attend (or to reject the invitation). If you are unable to contact them, you can email <a href='mailto:{{dinner.program.contact_addr}}'>{{dinner.program.contact_addr}}</a> and we can remove them from your dinner.</p>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule dinner with {{dinner.guest_of_honor_with_title}}{% endblock %}
+{% block content %}
+
+<h2>Schedule dinner with {{dinner.guest_of_honor_with_title}}</h2>
+
+<p>Please check with the other members of your party before attempting to set a dinner time.</p>
+
+<form method='post' action=''>
+<table>
+{{form.as_table}}
+<tr><th colspan='2'><input type='submit' value='Submit' /></th></tr>
+</table>
+</form>
+
+{% endblock %}

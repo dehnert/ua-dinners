@@ -182,3 +182,31 @@ def confirm_dinner(http_request, action, dinner_id):
         'pagename':'confirm_dinner',
     }
     return render_to_response('dinners/confirm.html', context, context_instance=RequestContext(http_request), )
+
+
+class DinnerScheduleForm(ModelForm):
+    class Meta:
+        model = Dinner
+        fields = ('dinner_place', 'dinner_time', )
+
+@login_required
+def schedule_dinner(http_request, dinner_id, ):
+    dinner_id = int(dinner_id)
+    dinner = get_object_or_404(Dinner, pk=dinner_id)
+    blockers = dinner.date_registration_blockers()
+    context = {
+        'dinner':   dinner,
+        'blockers': blockers,
+        'pagename': 'schedule_dinner',
+    }
+    if len(blockers) > 0:
+        context['blockers'] = blockers
+        return render_to_response('dinners/schedule_fail.html', context, context_instance=RequestContext(http_request), )
+    else:
+        form = DinnerScheduleForm(http_request.POST, instance=dinner)
+        if http_request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                return render_to_response('dinners/schedule_success.html', context, context_instance=RequestContext(http_request), )
+        context['form'] = form
+        return render_to_response('dinners/schedule.html', context, context_instance=RequestContext(http_request), )
