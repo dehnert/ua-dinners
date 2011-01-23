@@ -16,7 +16,7 @@ class AthenaPerson(models.Model):
     office_location = models.CharField(max_length=30)
     first_name      = models.CharField(max_length=30)
     year            = models.CharField(max_length=1)
-    unit_name       = models.CharField(max_length=16)
+    unit_name       = models.CharField(max_length=45)
     last_name       = models.CharField(max_length=30)
     add_date        = models.DateField(help_text="Date when this person was added to the dump.", )
     del_date        = models.DateField(help_text="Date when this person was removed from the dump.", blank=True, null=True, )
