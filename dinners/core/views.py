@@ -235,6 +235,31 @@ def schedule_dinner(http_request, dinner_id, ):
         if http_request.method == 'POST':
             if form.is_valid():
                 form.save()
+                send_scheduled_email(dinner)
                 return render_to_response('dinners/schedule_success.html', context, context_instance=RequestContext(http_request), )
         context['form'] = form
         return render_to_response('dinners/schedule.html', context, context_instance=RequestContext(http_request), )
+
+def send_scheduled_email(dinner):
+    program = dinner.program
+    guest_name = dinner.guest_of_honor_with_title()
+    students = [part.person for part in dinner.student_attendees()]
+    tmpl = get_template('dinners/emails/scheduled.txt')
+    ctx = Context({
+        'program': program,
+        'dinner': dinner,
+        'guest_name': guest_name,
+        'students': students,
+        'amount': (len(students)+1)*program.person_money_cap,
+    })
+    body = tmpl.render(ctx)
+    to_recipients = [person.contact_email() for person in students]
+    bcc_recipients = [program.archive_addr]
+    email = EmailMessage(
+        subject='Dinner with %s --- REIMBURSEMENT INSTRUCTIONS' % (guest_name,),
+        body=body,
+        from_email=program.contact_addr,
+        to=to_recipients,
+        bcc=bcc_recipients,
+    )
+    email.send()

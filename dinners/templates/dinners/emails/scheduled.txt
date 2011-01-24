@@ -1,0 +1,31 @@
+Hello, all.
+
+Thank you for registering a date for the UA Student Faculty Dinner
+Program! In order to be reimbursed, please
+
+1) Print a copy of this email with {{guest_name}}'s signature
+2) Print a copy of the attached PDF form, and fill it out
+3) Attach the above to an original, itemized, English receipt and
+   proof of payment from the restaurant. Please note that we will not
+   be able to reimburse you without both an itemized receipt and proof
+   of payment. Sometimes these are provided as two separate documents.
+4) Please turn this email, the reimbursement form, and the receipt(s)
+   into the mailbox outside the UA office, W20-401.
+
+By MIT policy, we cannot reimburse alcohol or tax. To avoid paying
+tax, tell the restaurant that your dinner should be tax-exempt,
+and show them a copy of MIT's tax-exemption letter
+(https://vpf.mit.edu/site/content/download/1812/6428/file/taxexempt_st2.pdf).
+
+Thanks a lot for your participation and we hope you enjoy the
+program. As a reminder, you have ${{amount}} to spend on the dinner.
+
+Best,
+Undergraduate Association Student Committee on Educational Policy (SCEP)
+
+
+Names of Students:{% for student in students %}
+{{student.display_name}} <{{student.contact_email}}>{%endfor%}
+
+signed, __________________________________________,
+{{guest_name}}
