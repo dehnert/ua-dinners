@@ -1,31 +1,14 @@
 Hello,
 
-Thank you for participating in the UA Student-Faculty dinner! All
-of the dinner attendees have now confirmed that they will be attending.
-This e-mail is a confirmation that your application has been processed and
-also a reminder that you have until {{dinner.schedule_deadline|date:"DATE_FORMAT"}} to set up
-a date that is acceptable for all participants of the dinner. Please
-note that you only have to register your date by {{dinner.schedule_deadline|date:"DATE_FORMAT"}}.
-The dinner can take place anytime until {{program.dinners_deadline|date:"DATE_FORMAT"}}. After
-picking a date please return to the UA website to enter the date that
-you have chosen:
+Thank you for participating in the {{program.dinner_name}}! All of the dinner attendees have now confirmed that they will be attending.  This e-mail is a confirmation that your application has been processed and also a reminder that you have until {{dinner.schedule_deadline|date:"DATE_FORMAT"}} to set up a date that is acceptable for all participants of the dinner. Please note that you only have to register your date by {{dinner.schedule_deadline|date:"DATE_FORMAT"}}.  The dinner can take place anytime until {{program.dinners_deadline|date:"DATE_FORMAT"}}. After picking a date please return to the UA website to enter the date that you have chosen:
 
 {{schedulelink}}
 
-In order to be reimbursed, you will need to turn in your original, itemized,
-receipt and proof of payment, attached to the confirmation email you will
-receive when you register a date with us.  The receipts will go into the
-mailbox outside the UA office, W20-401. The receipt must be itemized in English
-in order to be reimbursed.
+In order to be reimbursed, you will need to turn in your original, itemized, receipt and proof of payment, attached to the confirmation email you will receive when you register a date with us.  The receipts will go into the mailbox outside the UA office, W20-401. The receipt must be itemized in English in order to be reimbursed.
 
-By MIT policy, we cannot reimburse alcohol or tax. To avoid paying
-tax, tell the restaurant that your dinner should be tax-exempt,
-and show them a copy of MIT's tax-exemption letter
-(https://vpf.mit.edu/site/content/download/1812/6428/file/taxexempt_st2.pdf).
+By MIT policy, we cannot reimburse alcohol or tax. To avoid paying tax, tell the restaurant that your dinner should be tax-exempt, and show them a copy of MIT's tax-exemption letter (https://vpf.mit.edu/site/content/download/1812/6428/file/taxexempt_st2.pdf).
 
-If you have any questions, please do not hesitate to email us at
-<{{program.contact_addr}}>.
+If you have any questions, please do not hesitate to email us at <{{program.contact_addr}}>.
 
 Best,
-Undergraduate Association Student Committee on Educational Policy (SCEP)
-
+{{program.sponsor_long}}

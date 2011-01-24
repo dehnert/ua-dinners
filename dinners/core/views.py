@@ -116,6 +116,7 @@ def send_register_student_email(creator, program, dinner, ):
     tmpl = get_template('dinners/emails/register_student.txt')
     ctx = Context({
         'creator': creator,
+        'program': program,
         'guest': dinner.guest_of_honor_with_title(),
         'confirmlink' : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='confirm', dinner_id=dinner.pk), ),
         'rejectlink'  : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='reject', dinner_id=dinner.pk), ),
@@ -137,6 +138,7 @@ def send_register_guest_email(creator, program, dinner, ):
     tmpl = get_template('dinners/emails/register_guest.txt')
     ctx = Context({
         'creator': creator,
+        'program': program,
         'dinner': dinner,
         'guest': guest,
     })
@@ -145,7 +147,7 @@ def send_register_guest_email(creator, program, dinner, ):
     to_recipients = [guest.contact_email()]
     bcc_recipients = [program.archive_addr]
     email = EmailMessage(
-        subject='Student-Faculty Dinner',
+        subject=program.dinner_name,
         body=body,
         from_email=program.contact_addr,
         to=to_recipients,
