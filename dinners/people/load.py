@@ -28,12 +28,14 @@ fields = [
 def load_people(them):
     django_people = people.models.AthenaPerson.objects.all()
     stat_changed = 0
+    stat_mut_ign = 0
     stat_unchanged = 0
     stat_del = 0
     stat_pre_del = 0
     stat_add = 0
     stat_pt_created = 0
     for django_person in django_people:
+        mutable = django_person.person_type.mutable
         if django_person.krb_name in them:
             # great, they're still in the dump
             changed = False
@@ -41,24 +43,32 @@ def load_people(them):
             del them[django_person.krb_name]
             if django_person.person_type.name != ware_person['PERSON_TYPE']:
                 changed = True
-                django_person.person_type, pt_created = people.models.PersonType.objects.get_or_create(name=ware_person['PERSON_TYPE'])
-                if pt_created:
-                    stat_pt_created += 1
+                if mutable:
+                    django_person.person_type, pt_created = people.models.PersonType.objects.get_or_create(name=ware_person['PERSON_TYPE'])
+                    if pt_created:
+                        stat_pt_created += 1
             for dp_key, w_key in fields:
                 if django_person.__dict__[dp_key] != ware_person[w_key]:
                     changed = True
-                    django_person.__dict__[dp_key] = ware_person[w_key]
+                    if mutable:
+                        django_person.__dict__[dp_key] = ware_person[w_key]
             if changed:
-                django_person.mod_date = datetime.date.today()
-                django_person.save()
-                stat_changed += 1
+                if mutable:
+                    django_person.mod_date = datetime.date.today()
+                    django_person.save()
+                    stat_changed += 1
+                else:
+                    stat_mut_ign += 1
             else:
                 stat_unchanged += 1
         else:
             if django_person.del_date is None:
-                django_person.del_date = datetime.date.today()
-                stat_del += 1
-                django_person.save()
+                if mutable:
+                    django_person.del_date = datetime.date.today()
+                    stat_del += 1
+                    django_person.save()
+                else:
+                    stat_mut_ign += 1
             else:
                 stat_pre_del += 1
     for krb_name, ware_person in them.items():
@@ -73,6 +83,7 @@ def load_people(them):
         django_person.save()
     stats = {
         'changed': stat_changed,
+        'mut_ign': stat_mut_ign,
         'unchanged': stat_unchanged,
         'del': stat_del,
         'pre_del': stat_pre_del,
@@ -87,6 +98,7 @@ if __name__ == '__main__':
     stats = load_people(them)
     print """
 Changed:            %(changed)6d
+Change ignored:     %(mut_ign)6d
 Unchanged:          %(unchanged)6d
 Deleted:            %(del)6d
 Already Deleted:    %(pre_del)6d
