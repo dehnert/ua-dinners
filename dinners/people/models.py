@@ -13,10 +13,10 @@ class PersonType(models.Model):
 class AthenaPerson(models.Model):
     krb_name        = models.CharField(max_length=8, verbose_name='Kerberos name')
     person_type     = models.ForeignKey(PersonType)
-    office_location = models.CharField(max_length=30)
+    office_location = models.CharField(max_length=30,   null=True)
     first_name      = models.CharField(max_length=30)
-    year            = models.CharField(max_length=1)
-    unit_name       = models.CharField(max_length=45)
+    year            = models.CharField(max_length=1,    null=True)
+    unit_name       = models.CharField(max_length=45,   null=True)
     last_name       = models.CharField(max_length=30)
     add_date        = models.DateField(help_text="Date when this person was added to the dump.", )
     del_date        = models.DateField(help_text="Date when this person was removed from the dump.", blank=True, null=True, )
