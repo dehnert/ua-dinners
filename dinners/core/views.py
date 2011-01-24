@@ -174,6 +174,13 @@ def confirm_dinner(http_request, action, dinner_id):
     else:
         raise Http404
     part.save()
+
+    # Possibly inform attendees that the dinner is schedulable
+    blockers = dinner.date_registration_blockers()
+    if len(blockers) == 0:
+        send_schedulable_email(dinner)
+
+    # Inform user they confirmed
     context = {
         'action':action,
         'dinner':dinner,
@@ -183,6 +190,27 @@ def confirm_dinner(http_request, action, dinner_id):
     }
     return render_to_response('dinners/confirm.html', context, context_instance=RequestContext(http_request), )
 
+def send_schedulable_email(dinner):
+    program = dinner.program
+    guest_name = dinner.guest_of_honor_with_title()
+    tmpl = get_template('dinners/emails/schedulable.txt')
+    ctx = Context({
+        'program': program,
+        'dinner': dinner,
+        'guest': guest_name,
+        'schedulelink' : settings.SITE_URL_BASE + reverse('schedule_dinner', kwargs=dict(dinner_id=dinner.pk), ),
+    })
+    body = tmpl.render(ctx)
+    to_recipients = [part.person.contact_email() for part in dinner.student_attendees()]
+    bcc_recipients = [program.archive_addr]
+    email = EmailMessage(
+        subject='Scheduling dinner with ' + guest_name,
+        body=body,
+        from_email=program.contact_addr,
+        to=to_recipients,
+        bcc=bcc_recipients,
+    )
+    email.send()
 
 class DinnerScheduleForm(ModelForm):
     class Meta:

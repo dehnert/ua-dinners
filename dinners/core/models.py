@@ -3,6 +3,8 @@ from django.db import models
 import datetime
 
 
+TIME_DUEDATE = datetime.timedelta(weeks=3)
+
 # Choices for fields
 CONFIRM_UNSET       = 0
 CONFIRM_CONFIRMED   = 10
@@ -39,6 +41,7 @@ class DinnerProgram(models.Model):
     allow_prof          = models.BooleanField(help_text="Check to allow a professor to be the focus of the dinners.")
     contact_addr        = models.EmailField(help_text="Contact address for the program. This address will be used for sending out emails.")
     archive_addr        = models.EmailField(help_text="Archive address for the program. This address will be BCC'd on outgoing emails.")
+    dinners_deadline    = models.DateField(help_text="Last date when dinners may take place.")
 
     def __unicode__(self, ):
         return self.name
@@ -65,6 +68,21 @@ class Dinner(models.Model):
         """
         return self.students_state().filter(confirmed=CONFIRM_UNSET, valid__gte=VALID_UNSET)
 
+
+    def student_attendees(self, ):
+        """
+        Return attendees of the dinner.
+
+        This is defined as people who are confirmed and valid.
+        """
+
+        parts = self.students_state().filter(
+            confirmed__gt=CONFIRM_UNSET,
+            valid__gt=VALID_UNSET,
+        )
+        print "attendees", parts
+        return parts
+
     def guest_of_honor(self, ):
         if self.prof: return self.prof
         if self.alum: return self.alum
@@ -77,6 +95,10 @@ class Dinner(models.Model):
         if len(guests) == 0:
             raise ValueError, "no guest of honor"
         return " and ".join(guests)
+
+    def schedule_deadline(self, ):
+        print "schedule_deadline", self.create_time, (self.create_time + TIME_DUEDATE)
+        return self.create_time + TIME_DUEDATE
 
     def __unicode__(self, ):
         return "Dinner: %s (creator) with %s (guest)" % (self.creator, str(self.guest_of_honor()), )
