@@ -4,6 +4,9 @@ from django.db import models
 
 class PersonType(models.Model):
     name            = models.CharField(max_length=60)
+    mutable         = models.BooleanField(default=True)
+    student         = models.BooleanField(default=False)
+    faculty         = models.BooleanField(default=False)
 
     def __unicode__(self, ):
         return self.name
