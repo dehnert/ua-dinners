@@ -1,5 +1,6 @@
 from django.db import models
 
+import copy
 import datetime
 
 
@@ -45,6 +46,23 @@ class DinnerProgram(models.Model):
     dinner_name         = models.CharField(max_length=40, help_text='Name of a dinner --- for example, "Student-Faculty Dinner".')
     sponsor_long        = models.CharField(max_length=40, help_text='Full name of the program sponsor --- for example, "Student Committee on Educational Policy".')
     purpose             = models.TextField(help_text='Put in some nice blurb about why the program exists.')
+
+    def copy(self, ):
+        """Copy a DinnerProgram
+
+        Note that if DinnerProgram ever acquires a foreign key or the
+        like, the referenced object should probably be copies as well.
+
+        The copy will be saved and returned. If you want to modify it
+        further, you can do so. However, you can also completely ignore
+        the return value, and it will already have been saved to the DB.
+        """
+        new_obj = copy.deepcopy(self, )
+        new_obj.pk = None
+        new_obj.slug = self.slug + "-copy"
+        new_obj.name = self.name + " (copy)"
+        new_obj.save()
+        return new_obj
 
     def __unicode__(self, ):
         return self.name
