@@ -16,10 +16,10 @@ urlpatterns = patterns('',
     # Example:
     # (r'^dinners/', include('dinners.foo.urls')),
     (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html', 'extra_context': { 'pagename':'homepage' }, }, 'homepage'),
-    url(r'^dinners/view/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.view_dinners, name='view_dinners', ),
-    url(r'^dinners/view/(?P<program_slug>[a-z0-9-]+)/(?P<dinner_id>[0-9]+)$', dinners.core.views.view_dinner, name='view_dinner', ),
+    url(r'^view/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.view_dinners, name='view_dinners', ),
+    url(r'^view/(?P<program_slug>[a-z0-9-]+)/(?P<dinner_id>[0-9]+)$', dinners.core.views.view_dinner, name='view_dinner', ),
     url(
-        r'^dinners/register/$',
+        r'^register/$',
         object_list,
         {
             'queryset': dinners.core.models.DinnerProgram.objects.filter(enabled=True),
@@ -27,9 +27,9 @@ urlpatterns = patterns('',
         },
         'register_pick_program',
     ),
-    url(r'^dinners/register/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.register_dinner, name='register_dinner', ),
-    url(r'^dinners/(?P<action>confirm|reject)/(?P<dinner_id>[0-9]+)$', dinners.core.views.confirm_dinner, name='confirm_dinner', ),
-    url(r'^dinners/schedule/(?P<dinner_id>[0-9]+)$', dinners.core.views.schedule_dinner, name='schedule_dinner', ),
+    url(r'^register/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.register_dinner, name='register_dinner', ),
+    url(r'^(?P<action>confirm|reject)/(?P<dinner_id>[0-9]+)$', dinners.core.views.confirm_dinner, name='confirm_dinner', ),
+    url(r'^schedule/(?P<dinner_id>[0-9]+)$', dinners.core.views.schedule_dinner, name='schedule_dinner', ),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
