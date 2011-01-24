@@ -7,7 +7,7 @@ class DinnerParticipantInline(admin.TabularInline):
     extra = 5
 
 class DinnerProgramAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'name', 'enabled', 'min_students', 'max_students', 'person_money_cap', 'allow_alum', 'allow_prof', )
+    list_display = ('slug', 'name', 'enabled', 'min_students', 'max_students', 'person_money_cap', 'allow_alum', 'allow_prof', 'dinner_name', 'sponsor_long', )
     list_display_links = ('slug', 'name', )
 
 class DinnerAdmin(admin.ModelAdmin):
