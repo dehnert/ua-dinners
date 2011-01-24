@@ -1,3 +1,4 @@
 *.pyc
 local_settings.py
 dinners.sqlite3
+people/students.json
