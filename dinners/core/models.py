@@ -127,7 +127,7 @@ class Dinner(models.Model):
 
 class DinnerParticipant(models.Model):
     dinner      = models.ForeignKey(Dinner)
-    person      = models.ForeignKey("people.AthenaPerson")
+    person      = models.ForeignKey("people.AthenaPerson", to_field='krb_name')
     confirmed   = models.IntegerField(choices=CONFIRM_CHOICES)
     valid       = models.IntegerField(choices=VALID_CHOICES)
 
