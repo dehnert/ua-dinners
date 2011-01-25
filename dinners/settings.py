@@ -91,4 +91,5 @@ INSTALLED_APPS = (
     'south',
     'people',
     'dinners.core',
+    'dinners.third',
 )
