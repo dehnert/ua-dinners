@@ -70,8 +70,8 @@ class DinnerProgram(models.Model):
 
 class Dinner(models.Model):
     program     = models.ForeignKey(DinnerProgram)
-    prof        = models.ForeignKey('people.AthenaPerson', blank=True, null=True)
-    alum        = models.ForeignKey('people.AlumPerson', blank=True, null=True, related_name="prof_dinners")
+    prof        = models.ForeignKey('people.AthenaPerson', blank=True, null=True, related_name="prof_dinners")
+    alum        = models.ForeignKey('people.AlumPerson', blank=True, null=True)
     students    = models.ManyToManyField('people.AthenaPerson', through='DinnerParticipant', related_name="student_dinners")
     creator     = models.CharField(max_length=10)
     create_time = models.DateTimeField(default=datetime.datetime.now)
