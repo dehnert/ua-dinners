@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load futuredjango %}
 
 {% block title %}Select a program{% endblock %}
 {% block content %}
@@ -7,7 +8,7 @@
 
 <ul>
 {% for program in object_list %}
-<li><a href='{% url register_dinner program.slug %}'>{{program}}</a></li>
+<li><a href='{% url urlname program.slug %}'>{{program}}</a></li>
 {% endfor %}
 </ul>
 

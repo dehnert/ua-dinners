@@ -16,6 +16,32 @@ from dinners.core.models import Dinner, DinnerParticipant, DinnerProgram
 import dinners.core.models
 import dinners.people.forms
 
+def select_program(http_request, forview=None, urlname=None, pagename=None):
+    """Allow selecting a program before going to another page.
+
+    Displays all currently enabled programs, and allows the user to select
+    one. Upon selection, the user will be forwarded to the URL reverse
+    resolution of the URL named ``urlname'' (or ``forview'', if unset).
+
+    The page will be rendered with a pagename of ``pagename'' (or ``forview''
+    if unset."""
+    if urlname is None:
+        urlname = forview
+    if pagename is None:
+        pagename = forview
+    if urlname is None:
+        # urlname was None and forview was None
+        raise ValueError
+    qs = dinners.core.models.DinnerProgram.objects.filter(enabled=True,)
+    return list_detail.object_list(
+        http_request,
+        queryset=qs,
+        extra_context={
+            'pagename':pagename,
+            'urlname': urlname
+        },
+    )
+
 @user_passes_test(lambda u: u.has_perm('core.view_dinners'))
 def view_dinners(http_request, program_slug, ):
     program = get_object_or_404(dinners.core.models.DinnerProgram, slug=program_slug, )
