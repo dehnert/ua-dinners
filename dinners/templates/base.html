@@ -17,6 +17,9 @@
         <li{% ifequal pagename "register_dinner" %} class='selected'{% endifequal %}><a href="{% url register_dinner %}">Register Dinner</a></li>
         <li{% ifequal pagename "confirm_dinner" %} class='selected'{% endifequal %}>Confirm Dinner</li>
         <li{% ifequal pagename "schedule_dinner" %} class='selected'{% endifequal %}>Schedule Dinner</li>
+        {% if perms.core.view_dinners %}
+        <li{% ifequal pagename "view_dinners" %} class='selected'{% endifequal %}><a href='{% url view_dinners %}'>View</a></li>
+        {% endif %}
         {% if user.is_staff %}
         <li><a href='{% url admin:index %}'>Django Admin</a></li>
         {% endif %}
