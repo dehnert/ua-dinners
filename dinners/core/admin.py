@@ -4,6 +4,7 @@ from django.contrib import admin
 
 class DinnerParticipantInline(admin.TabularInline):
     model = DinnerParticipant
+    raw_id_fields = ('person', )
     extra = 5
 
 def copy_programs(modeladmin, request, queryset):
