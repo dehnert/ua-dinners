@@ -8,6 +8,8 @@ class PersonTypeAdmin(admin.ModelAdmin):
 
 class AthenaPersonAdmin(admin.ModelAdmin):
     list_display = ('krb_name', 'person_type', 'first_name', 'last_name', 'year', 'unit_name', 'add_date', 'mod_date', 'del_date', )
+    search_fields = ('krb_name', 'first_name', 'last_name', )
+    list_filter = ('person_type', 'add_date', 'mod_date', 'del_date', )
 
 admin.site.register(PersonType, PersonTypeAdmin)
 admin.site.register(AthenaPerson, AthenaPersonAdmin)
