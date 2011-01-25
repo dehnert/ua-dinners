@@ -14,7 +14,7 @@ class PersonType(models.Model):
 
 
 class AthenaPerson(models.Model):
-    krb_name        = models.CharField(max_length=8, verbose_name='Kerberos name')
+    krb_name        = models.CharField(max_length=8, verbose_name='Kerberos name', unique=True, )
     person_type     = models.ForeignKey(PersonType)
     office_location = models.CharField(max_length=30,   null=True)
     first_name      = models.CharField(max_length=30)
