@@ -15,7 +15,8 @@ import settings
 urlpatterns = patterns('',
     # Example:
     # (r'^dinners/', include('dinners.foo.urls')),
-    (r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html', 'extra_context': { 'pagename':'homepage' }, }, 'homepage'),
+    url(r'^$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html', 'extra_context': { 'pagename':'homepage' }, }, name='homepage'),
+    url(r'^dinners/$', 'django.views.generic.simple.direct_to_template', {'template': 'index.html', 'extra_context': { 'pagename':'homepage' }, }, name='homepage'),
     url(r'^view/$', dinners.core.views.select_program, {'forview':'view_dinners'}, 'view_dinners'),
     url(r'^view/(?P<program_slug>[a-z0-9-]+)/$', dinners.core.views.view_dinners, name='view_dinners', ),
     url(r'^view/(?P<program_slug>[a-z0-9-]+)/(?P<dinner_id>[0-9]+)$', dinners.core.views.view_dinner, name='view_dinner', ),
