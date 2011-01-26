@@ -42,7 +42,15 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
+ENABLE_SCRIPTS_AUTH = None
+
 from local_settings import *
+
+if ENABLE_SCRIPTS_AUTH is None:
+    if ON_SCRIPTS:
+        ENABLE_SCRIPTS_AUTH = True
+    else:
+        ENABLE_SCRIPTS_AUTH = False
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -72,11 +80,19 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-)
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+if ENABLE_SCRIPTS_AUTH:
+    MIDDLEWARE_CLASSES.append('mit.ScriptsRemoteUserMiddleware')
+    AUTHENTICATION_BACKENDS.insert(0, 'mit.ScriptsRemoteUserBackend')
 
 ROOT_URLCONF = 'dinners.urls'
 
@@ -97,4 +113,5 @@ INSTALLED_APPS = (
     'people',
     'dinners.core',
     'dinners.third',
+    'mit',
 )
