@@ -36,7 +36,7 @@ class AthenaPerson(models.Model):
 
 
 class AlumPerson(models.Model):
-    account_name    = models.CharField(max_length=8)
+    account_name    = models.CharField(max_length=8, unique=True, )
     grad_year       = models.IntegerField()
     first_name      = models.CharField(max_length=30)
     last_name       = models.CharField(max_length=30)
