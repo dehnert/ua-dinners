@@ -27,5 +27,7 @@ class DinnerAdmin(admin.ModelAdmin):
     list_display = ('id', 'program', 'creator', 'prof', 'alum', )
     list_display_links = ('id', 'program', 'creator', )
 
+    raw_id_fields = ('prof', 'alum', )
+
 admin.site.register(DinnerProgram, DinnerProgramAdmin)
 admin.site.register(Dinner, DinnerAdmin)
