@@ -24,7 +24,7 @@
 <tr><th>Alumnus</th><td>{{dinner.alum}}</td></tr>
 {% endif %}
 <tr><th>Participants</th><td><ul>
-    {% for part in dinner.students.all %}
+    {% for part in dinner.get_students %}
     <li>{{part}}</li>
     {% endfor %}
 </ul></td></tr>

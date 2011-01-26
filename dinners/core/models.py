@@ -78,6 +78,12 @@ class Dinner(models.Model):
     dinner_place= models.CharField(max_length=100, blank=True, )
     dinner_time = models.DateTimeField(null=True, blank=True, )
 
+    def get_students(self, ):
+        # XXX: students.all doesn't work
+        # http://code.djangoproject.com/ticket/15161
+        parts = self.students_state().select_related(depth=1)
+        return [part.person for part in parts]
+
     def students_state(self, ):
         return DinnerParticipant.objects.filter(dinner=self,)
 
