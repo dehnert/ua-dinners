@@ -1,0 +1,72 @@
+# encoding: utf-8
+import datetime
+from south.db import db
+from south.v2 import SchemaMigration
+from django.db import models
+
+class Migration(SchemaMigration):
+
+    def forwards(self, orm):
+        
+        # Changing field 'AthenaPerson.unit_name'
+        db.alter_column('people_athenaperson', 'unit_name', self.gf('django.db.models.fields.CharField')(max_length=45, null=True, blank=True))
+
+        # Changing field 'AthenaPerson.first_name'
+        db.alter_column('people_athenaperson', 'first_name', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True))
+
+        # Changing field 'AthenaPerson.office_location'
+        db.alter_column('people_athenaperson', 'office_location', self.gf('django.db.models.fields.CharField')(max_length=30, null=True, blank=True))
+
+        # Changing field 'AthenaPerson.year'
+        db.alter_column('people_athenaperson', 'year', self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True))
+
+
+    def backwards(self, orm):
+        
+        # Changing field 'AthenaPerson.unit_name'
+        db.alter_column('people_athenaperson', 'unit_name', self.gf('django.db.models.fields.CharField')(max_length=45, null=True))
+
+        # Changing field 'AthenaPerson.first_name'
+        db.alter_column('people_athenaperson', 'first_name', self.gf('django.db.models.fields.CharField')(max_length=30, null=True))
+
+        # Changing field 'AthenaPerson.office_location'
+        db.alter_column('people_athenaperson', 'office_location', self.gf('django.db.models.fields.CharField')(max_length=30, null=True))
+
+        # Changing field 'AthenaPerson.year'
+        db.alter_column('people_athenaperson', 'year', self.gf('django.db.models.fields.CharField')(max_length=1, null=True))
+
+
+    models = {
+        'people.alumperson': {
+            'Meta': {'object_name': 'AlumPerson'},
+            'account_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'grad_year': ('django.db.models.fields.IntegerField', [], {}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'})
+        },
+        'people.athenaperson': {
+            'Meta': {'object_name': 'AthenaPerson'},
+            'add_date': ('django.db.models.fields.DateField', [], {}),
+            'del_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'krb_name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '8'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
+            'mod_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'office_location': ('django.db.models.fields.CharField', [], {'max_length': '30', 'null': 'True', 'blank': 'True'}),
+            'person_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['people.PersonType']"}),
+            'unit_name': ('django.db.models.fields.CharField', [], {'max_length': '45', 'null': 'True', 'blank': 'True'}),
+            'year': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'})
+        },
+        'people.persontype': {
+            'Meta': {'object_name': 'PersonType'},
+            'faculty': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'mutable': ('django.db.models.fields.BooleanField', [], {'default': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
+            'student': ('django.db.models.fields.BooleanField', [], {'default': 'False', 'blank': 'True'})
+        }
+    }
+
+    complete_apps = ['people']
