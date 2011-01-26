@@ -5,6 +5,8 @@ import sys
 SITE_ROOT = os.path.normpath(os.path.dirname(__file__))
 SITE_WEB_PATH = ''
 
+ON_SCRIPTS = False
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -54,7 +56,10 @@ MEDIA_URL = SITE_WEB_PATH + '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = SITE_WEB_PATH + '/media/admin/'
+if ON_SCRIPTS:
+    ADMIN_MEDIA_PREFIX = '/__scripts/django/media/'
+else:
+    ADMIN_MEDIA_PREFIX = SITE_WEB_PATH + '/media/admin/'
 
 LOGIN_REDIRECT_URL  = SITE_WEB_PATH + '/'
 LOGIN_URL  = SITE_WEB_PATH + '/accounts/login'
