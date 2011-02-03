@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}People Search{% endblock %}
+{% block content %}
+
+<h2>People Search</h2>
+
+<p>You can use this interface to look up names, usernames, and departments by email address. This is primarily intended for math professors, who often only give out their math.mit.edu address.</p>
+
+<form method="get" action="">
+<table class='pretty-table'>
+{% if error %}<tr><th>Error</th><td>{{error}}</td></tr>{% endif %}
+{{ form.as_table }}
+<th>Name</th><td>{{data.cn}}</td></tr>
+<th>Department</th><td>{{data.ou}}</td></tr>
+<th>Athena Username</th><td>{{data.uid}}</td></tr>
+<tr><th colspan='2'><input type='submit' value='Search' /></th></tr>
+</table>
+</form>
+
+{% endblock %}
