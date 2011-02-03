@@ -12,7 +12,7 @@ def copy_programs(modeladmin, request, queryset):
         program.copy()
 
 class DinnerProgramAdmin(admin.ModelAdmin):
-    list_display = ('slug', 'name', 'enabled', 'min_students', 'max_students', 'person_money_cap', 'allow_alum', 'allow_prof', 'dinner_name', 'sponsor_long', )
+    list_display = ('name', 'slug', 'enabled', 'min_students', 'max_students', 'person_money_cap', 'allow_alum', 'allow_prof', 'dinner_name', 'sponsor_long', )
     list_display_links = ('slug', 'name', )
     actions = [copy_programs]
 
