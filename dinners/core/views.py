@@ -73,7 +73,7 @@ def DinnerFormFactory(program):
     class DinnerForm(Form):
         required_css_class = 'required'
         if program.allow_prof:
-            professor = dinners.people.forms.AthenaPerson_ChoiceField_Factory()
+            professor = dinners.people.forms.AthenaPerson_ChoiceField_Factory(require_prof=True, )
         if program.allow_alum:
             alum = dinners.people.forms.AlumPerson_ChoiceField_Factory()
     for i in range(0, program.max_students):
@@ -82,7 +82,7 @@ def DinnerFormFactory(program):
             'required':required,
             'label':'Student',
         }
-        field = dinners.people.forms.AthenaPerson_ChoiceField_Factory(args)
+        field = dinners.people.forms.AthenaPerson_ChoiceField_Factory(args, require_student=True, )
         DinnerForm.base_fields['student_'+str(i)] = field
     print "DinnerForm:", DinnerForm.__dict__
     return DinnerForm
