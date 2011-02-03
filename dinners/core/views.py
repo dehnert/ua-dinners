@@ -148,7 +148,7 @@ def send_register_student_email(creator, program, dinner, ):
         'rejectlink'  : settings.SITE_URL_BASE + reverse('confirm_dinner', kwargs=dict(action='reject', dinner_id=dinner.pk), ),
     })
     body = tmpl.render(ctx)
-    to_recipients = [person.krb_name for person in dinner.get_students()]
+    to_recipients = [person.contact_email() for person in dinner.get_students()]
     bcc_recipients = [program.archive_addr]
     email = EmailMessage(
         subject='Registered dinner with %s' % (dinner.guest_of_honor_with_title()),
