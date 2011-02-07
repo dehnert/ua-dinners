@@ -4,7 +4,7 @@ Thank you for participating in the {{program.dinner_name}}! All of the dinner at
 
 After picking a date please return to the UA website to enter the date that you have chosen: {{schedulelink}}
 
-In order to be reimbursed, you will need to turn in your original, itemized, receipt and proof of payment, attached to the confirmation email you will receive when you register a date with us.  The receipts will go into the mailbox outside the UA office, W20-401. The receipt must be itemized in English in order to be reimbursed.
+In order to be reimbursed, you will need to turn in your original, itemized, receipt and proof of payment, attached to the confirmation email you will receive when you register a date with us.  The receipts will go into the mailbox outside the UA office, W20-401. The itemized receipt must be in English in order to be reimbursed and there must be a proof of payment which may or may not be on the itemized receipt depending on the restaurant.
 
 By MIT policy, we cannot reimburse alcohol or tax. To avoid paying tax, tell the restaurant that your dinner should be tax-exempt, and show them a copy of MIT's tax-exemption letter (https://vpf.mit.edu/site/content/download/1812/6428/file/taxexempt_st2.pdf).
 

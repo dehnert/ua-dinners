@@ -3,13 +3,19 @@ Hello, all.
 Thank you for registering a date for the {{program.dinner_name}} Program! In order to be reimbursed, please:
 
 1) Print a copy of this email with {{guest_name}}'s signature
-2) Print a copy of the attached PDF form, and fill it out
-3) Attach the above to an original, itemized, English receipt and
-   proof of payment from the restaurant. Please note that we will not
-   be able to reimburse you without both an itemized receipt and proof
-   of payment. Sometimes these are provided as two separate documents.
-4) Please turn this email, the reimbursement form, and the receipt(s)
-   into the mailbox outside the UA office, W20-401.
+2) To be reimbursed for your dinner, visit http://web.mit.edu/sapweb/PS1/procurement_home.shtml and click "Reimbursement".
+3) Enter the name of the person being reimbursed and continue.
+4) In the line items section, enter the date of service, the amount you’re being reimbursed for, and use the explanation section to list the name of the professor you had dinner with.
+5) Scan and attach your itemized receipt and proof of payment.
+6) Send your completed RFP form to Anika Gupta, using the "Send to" button at the bottom.
+7) The RFP number is a 9 digit number located in the top left. Write that RFP number here: _______________
+8) Attach the above to an original, itemized, English receipt and proof of payment from the restaurant. Please note that we will not be able to reimburse you without both an itemized receipt and proof of payment. Sometimes these are provided as two separate documents.
+9) Please turn this email and the receipt(s) into the mailbox outside the UA office, W20-401.
+
+To check on the status of your reimbursement:
+1) Go to http://web.mit.edu/sapweb/PS1/index.shtml and click on "Find RFPs" under the purchasing tab.
+2) Put in your name under "Payee" and click Search.
+3) Check Current Status. The page may take a few moments to load. If you have problems, email ua-treasurer@mit.edu.
 
 By MIT policy, we cannot reimburse alcohol or tax. To avoid paying tax, tell the restaurant that your dinner should be tax-exempt, and show them a copy of MIT's tax-exemption letter (https://vpf.mit.edu/site/content/download/1812/6428/file/taxexempt_st2.pdf).
 
