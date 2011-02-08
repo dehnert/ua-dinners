@@ -130,6 +130,11 @@ class Dinner(models.Model):
     def __unicode__(self, ):
         return "Dinner: %s (creator) with %s (guest)" % (self.creator, str(self.guest_of_honor()), )
 
+    class Meta:
+        permissions = (
+            ("view_dinners", "Can see all dinners"),
+        )
+
 
 class DinnerParticipant(models.Model):
     dinner      = models.ForeignKey(Dinner)
