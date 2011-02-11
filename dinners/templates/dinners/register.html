@@ -10,6 +10,8 @@
 
 <p>If you know a professor's email address but not their Athena username (e.g., professors who use math.mit.edu addresses), you can <a href='{% url search %}'>find their username</a>.</p>
 
+<p>Please enter the attendees' Athena usernames below{% if program.allow_alum %} (alum.mit.edu username for alumni){%endif%}:</p>
+
 <form method="post" action="">
 <table class='pretty-table'>
 <tr class='sect-head'>
