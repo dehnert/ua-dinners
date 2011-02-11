@@ -32,7 +32,7 @@ VALID_CHOICES = (
 # Models themselves
 class DinnerProgram(models.Model):
     slug                = models.SlugField(unique=True, )
-    name                = models.CharField(max_length=20)
+    name                = models.CharField(max_length=50)
     enabled             = models.BooleanField(help_text="Whether this program is enabled. Set to false to disable new signups for the program.")
     min_students        = models.IntegerField()
     max_students        = models.IntegerField()
