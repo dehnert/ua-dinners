@@ -119,7 +119,7 @@ def register_dinner(http_request, program_slug):
                         valid=dinners.core.models.VALID_UNSET,
                     )
                     if part.person_type.student:
-                        valid=dinners.core.models.VALID_AUTOVALIDATED
+                        part_obj.valid=dinners.core.models.VALID_AUTOVALIDATED
                     part_obj.save()
             print form.__dict__
 
