@@ -11,6 +11,8 @@ if __name__ == '__main__':
     sys.path.append(proj_dir)
     os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
+from django.db import transaction
+
 import people.models
 
 import datetime
@@ -25,6 +27,8 @@ fields = [
     ('unit_name'       , 'UNIT_NAME'       ),
     ('last_name'       , 'LAST_NAME'       ),
 ]
+
+@transaction.commit_manually
 def load_people(them):
     django_people = people.models.AthenaPerson.objects.all()
     stat_changed = 0
@@ -34,7 +38,13 @@ def load_people(them):
     stat_pre_del = 0
     stat_add = 0
     stat_pt_created = 0
+    stat_processed = 0
+    print "Phase 2a (Django): starting at %s" % (datetime.datetime.now(), )
     for django_person in django_people:
+        stat_processed += 1
+        if stat_processed % 1000 == 0:
+            transaction.commit()
+            print "Processing record %d" % (stat_processed, )
         mutable = django_person.person_type.mutable
         if django_person.krb_name in them:
             # great, they're still in the dump
@@ -71,7 +81,14 @@ def load_people(them):
                     stat_mut_ign += 1
             else:
                 stat_pre_del += 1
+    transaction.commit()
+    print "Phase 2a (Django): stopping at %s" % (datetime.datetime.now(), )
+    print "Phase 2b (Warehouse): starting at %s" % (datetime.datetime.now(), )
     for krb_name, ware_person in them.items():
+        stat_processed += 1
+        if stat_processed % 1000 == 0:
+            transaction.commit()
+            print "Processing record %d" % (stat_processed, )
         django_person = people.models.AthenaPerson()
         django_person.person_type, pt_created = people.models.PersonType.objects.get_or_create(name=ware_person['PERSON_TYPE'])
         if pt_created:
@@ -81,6 +98,8 @@ def load_people(them):
         django_person.add_date = datetime.date.today()
         stat_add += 1
         django_person.save()
+    transaction.commit()
+    print "Phase 2b (Warehouse): stopping at %s" % (datetime.datetime.now(), )
     stats = {
         'changed': stat_changed,
         'mut_ign': stat_mut_ign,
@@ -94,8 +113,12 @@ def load_people(them):
 
 
 if __name__ == '__main__':
+    print "Phase 1 (JSON): starting at %s" % (datetime.datetime.now(), )
     them = json.loads(sys.stdin.read())
+    print "Phase 1 (JSON): stopping at %s" % (datetime.datetime.now(), )
+    print "Phase 2 (load): starting at %s" % (datetime.datetime.now(), )
     stats = load_people(them)
+    print "Phase 4 (load): stopping at %s" % (datetime.datetime.now(), )
     print """
 Changed:            %(changed)6d
 Change ignored:     %(mut_ign)6d
