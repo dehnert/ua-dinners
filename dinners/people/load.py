@@ -118,7 +118,7 @@ if __name__ == '__main__':
     print "Phase 1 (JSON): stopping at %s" % (datetime.datetime.now(), )
     print "Phase 2 (load): starting at %s" % (datetime.datetime.now(), )
     stats = load_people(them)
-    print "Phase 4 (load): stopping at %s" % (datetime.datetime.now(), )
+    print "Phase 2 (load): stopping at %s" % (datetime.datetime.now(), )
     print """
 Changed:            %(changed)6d
 Change ignored:     %(mut_ign)6d
