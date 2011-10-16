@@ -10,4 +10,13 @@
 We're sorry that you've chosen not to attend.{%endifequal%}
 </p>
 
+<p>Current status of confirmations:</p>
+<table class='pretty-table'>
+{% include "dinners/display.header.html" %}
+
+{% with dinner.program as program %}
+{% include "dinners/display.part.html" %}
+{% endwith %}
+</table>
+
 {% endblock %}
