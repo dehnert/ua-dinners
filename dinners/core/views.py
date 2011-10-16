@@ -189,14 +189,31 @@ def confirm_dinner(http_request, action, dinner_id):
     dinner_id = int(dinner_id)
     print "confirm_dinner", action, dinner_id
     dinner = get_object_or_404(Dinner, pk=dinner_id)
+
+    # Inform user they confirmed
+    context = {
+        'action':action,
+        'dinner':dinner,
+        'user':http_request.user,
+        'pagename':'confirm_dinner',
+    }
+
     parts = DinnerParticipant.objects.filter(dinner=dinner, person__krb_name=http_request.user.username)
     print "parts", parts
     if len(parts) == 0:
-        raise Http404
+        context['code'] = '404 Page Not Found'
+        context['message'] = 'You do not appear to be a participant in this dinner.'
+        response = render_to_response('dinners/confirm.not-member.html', context, context_instance=RequestContext(http_request), )
+        response.status_code = 404
+        return response
     elif len(parts) == 1:
         part = parts[0]
     else:
-        raise Http500
+        context['code'] = '500 Internal Server Error'
+        context['message'] = "You appear to be a participant in this dinner multiple times over. This shouldn't happen."
+        response = render_to_response('dinners/confirm.multi-member.html', context, context_instance=RequestContext(http_request), )
+        response.status_code = 500
+        return response
     if action == 'reject':
         part.confirmed = dinners.core.models.CONFIRM_REJECTED
     elif action == 'confirm':
@@ -210,14 +227,8 @@ def confirm_dinner(http_request, action, dinner_id):
     if len(blockers) == 0:
         send_schedulable_email(dinner)
 
-    # Inform user they confirmed
-    context = {
-        'action':action,
-        'dinner':dinner,
-        'part':part,
-        'user':http_request.user,
-        'pagename':'confirm_dinner',
-    }
+    context['part'] = part
+
     return render_to_response('dinners/confirm.html', context, context_instance=RequestContext(http_request), )
 
 def send_schedulable_email(dinner):

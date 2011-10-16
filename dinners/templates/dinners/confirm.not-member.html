@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}404 Page Not Found: Not a dinner participant{% endblock %}
+{% block content %}
+
+<h2>404 Page Not Found</h2>
+
+<p>You do not appear to be a participant in this dinner. If you are confident that you should be, contact {{dinner.program.contact_addr}} to get this fixed.</p>
+
+{% endblock content %}
