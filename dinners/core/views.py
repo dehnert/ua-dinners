@@ -254,6 +254,9 @@ def send_schedulable_email(dinner):
     email.send()
 
 class DinnerScheduleForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(DinnerScheduleForm, self).__init__(*args, **kwargs)
+        self.fields['dinner_time'].help_text = "Format: YYYY-MM-DD HH:MM (e.g., 1776-06-04 19:00 for 7PM on the 4th of July)"
     class Meta:
         model = Dinner
         fields = ('dinner_place', 'dinner_time', )
