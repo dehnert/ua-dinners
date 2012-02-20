@@ -91,6 +91,14 @@ def DinnerFormFactory(program):
 def register_dinner(http_request, program_slug):
     program = get_object_or_404(DinnerProgram, slug=program_slug)
 
+    context = {
+        'program':program,
+        'pagename':'register_dinner',
+    }
+
+    if not program.enabled:
+        return render_to_response('dinners/disabled-program.html', context, context_instance=RequestContext(http_request), )
+
     initial = {}
 
     DinnerForm = DinnerFormFactory(program)
@@ -132,12 +140,9 @@ def register_dinner(http_request, program_slug):
     else:
         form = DinnerForm(initial=initial, ) # An unbound form
 
-    context = {
-        'form':form,
-        'dinner':new_dinner,
-        'program':program,
-        'pagename':'register_dinner',
-    }
+    context['dinner'] = new_dinner
+    context['form'] = form
+
     return render_to_response('dinners/register.html', context, context_instance=RequestContext(http_request), )
 
 def send_register_student_email(creator, program, dinner, ):

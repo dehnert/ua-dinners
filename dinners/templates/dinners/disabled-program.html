@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Disabled program: {{program}}{% endblock %}
+{% block content %}
+
+<h2>Disabled program: {{program}}</h2>
+
+<p>We're sorry, but the program you tried to register through, {{program}}, appears to be disabled, probably due to having ended. Please go back to the <a href='{% url register_dinner %}'>registration page</a> and register for an active dinner program.</p>
+
+{% endblock %}
