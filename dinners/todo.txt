@@ -1,4 +1,3 @@
-* Validate professors and alumni
 * Allow signing up with people who don't have accounts at all (?)
 * Don't allow specifying the same person multiple times on a dinner
 * Don't allow registering for multiple dinners in one program
