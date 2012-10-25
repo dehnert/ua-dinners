@@ -59,6 +59,7 @@ MEDIA_URL = SITE_WEB_PATH + '/media/'
 # Examples: "http://foo.com/media/", "/media/".
 if ON_SCRIPTS:
     ADMIN_MEDIA_PREFIX = '/__scripts/django/media/'
+    STATIC_URL = '/__scripts/django/static/'
 else:
     ADMIN_MEDIA_PREFIX = SITE_WEB_PATH + '/media/admin/'
 
