@@ -8,6 +8,7 @@
 <p>Please check with the other members of your party before attempting to set a dinner time.</p>
 
 <form method='post' action=''>
+{%csrf_token%}
 <table>
 {{form.as_table}}
 <tr><th colspan='2'><input type='submit' value='Submit' /></th></tr>

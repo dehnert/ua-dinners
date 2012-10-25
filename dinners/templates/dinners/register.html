@@ -13,6 +13,7 @@
 <p>Please enter the attendees' Athena usernames below{% if program.allow_alum %} (alum.mit.edu username for alumni){%endif%}:</p>
 
 <form method="post" action="">
+{%csrf_token%}
 <table class='pretty-table'>
 <tr class='sect-head'>
 {{ form.as_table }}
