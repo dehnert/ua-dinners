@@ -44,6 +44,7 @@ class DinnerProgram(models.Model):
     archive_addr        = models.EmailField(help_text="Archive address for the program. This address will be BCC'd on outgoing emails.")
     dinners_deadline    = models.DateField(help_text="Last date when dinners may take place.")
     dinner_name         = models.CharField(max_length=40, help_text='Name of a dinner --- for example, "Student-Faculty Dinner".')
+    rfp_recipient       = models.CharField(max_length=40, help_text='Name of the person to receive RFPs --- for example, the current treasurer (name and username).')
     sponsor_long        = models.CharField(max_length=40, help_text='Full name of the program sponsor --- for example, "Student Committee on Educational Policy".')
     purpose             = models.TextField(help_text='Put in some nice blurb about why the program exists.')
 
