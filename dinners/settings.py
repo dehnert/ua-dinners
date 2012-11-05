@@ -62,6 +62,7 @@ if ON_SCRIPTS:
     STATIC_URL = '/__scripts/django/static/'
 else:
     ADMIN_MEDIA_PREFIX = SITE_WEB_PATH + '/media/admin/'
+    STATIC_URL = SITE_WEB_PATH + '/static/'
 
 LOGIN_REDIRECT_URL  = SITE_WEB_PATH + '/'
 LOGIN_URL  = SITE_WEB_PATH + '/accounts/login'
